@@ -1,14 +1,15 @@
 import { test, expect } from '@playwright/test';
+import {URL, USERNAME, PASSWORD } from '../test-constants/constants.js';
 
 test('Verify User can sign up', async ({ page }) => {
 
     // SignUp flow
-  await page.goto('https://demoblaze.com/');
+  await page.goto(URL);
   await page.getByRole('link', { name: 'Sign up' }).click();
   await page.getByLabel('Username:').click();
-  await page.getByLabel('Username:').fill('bilalq3-10p');
+  await page.getByLabel('Username:').fill(USERNAME);
   await page.getByLabel('Password:').click();
-  await page.getByLabel('Password:').fill('12345');
+  await page.getByLabel('Password:').fill(PASSWORD);
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);
     dialog.dismiss().catch(() => {});
@@ -18,9 +19,9 @@ test('Verify User can sign up', async ({ page }) => {
   //Login flow to verify signup
   await page.getByRole('link', { name: 'Log in' }).click();
   await page.locator('#loginusername').click();
-  await page.locator('#loginusername').fill('bilalq3-10p');
+  await page.locator('#loginusername').fill(USERNAME);
   await page.locator('#loginpassword').click();
-  await page.locator('#loginpassword').fill('12345');
+  await page.locator('#loginpassword').fill(PASSWORD);
   await page.getByRole('button', { name: 'Log in' }).click();
 
   //Login Assertions
